@@ -6,9 +6,33 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
 
+  class Product {
+    ObjectID: string;
+    title: string;
+    description: string;
+    price: number;
+    supplier?: string;
+    
+    constructor(_objectID: string, _title: string, _description: string, _price: number, _supplier?: string) {
+      this.ObjectID = _objectID;
+      this.title = _title;
+      this.description = _description;
+      this.price = _price;
+      this.supplier = _supplier;
+    };
+
+    get getTitle() {
+      return this.title;
+    }
+  }
+
+  const test = new Product("66b0ba3cb3489045ad72c93f", "Test3", "Extended test3", 200, "SupplierTest3");
+  console.log(test.getTitle);
+
   return (
     <>
       <div>
+        <p>{test.getTitle}</p>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
