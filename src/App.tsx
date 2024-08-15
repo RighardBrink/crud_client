@@ -21,37 +21,42 @@ function App() {
       this.supplier = _supplier;
     };
 
+    get getObjectID() {
+      return this.ObjectID;
+    }
+
     get getTitle() {
       return this.title;
     }
+
+    get getDescription() {
+      return this.description;
+    }
+
+    get getPrice() {
+      return this.price;
+    }
+
+    get getSupplier() {
+      return this.supplier;
+    }
   }
 
-  const test = new Product("66b0ba3cb3489045ad72c93f", "Test3", "Extended test3", 200, "SupplierTest3");
-  console.log(test.getTitle);
+  const product1 = new Product("66b0ba3cb3489045ad72c93f", "Test3", "Extended test3", 200, "SupplierTest3");
+  const product2 = new Product("76b0ba3cb3489045ad72c93g", "Test4", "Extended test4", 300);
+
+  const products = [
+    product1, 
+    product2
+  ];
+
 
   return (
     <>
       <div>
-        <p>{test.getTitle}</p>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>My Products</h1>
+        <p>{products[0].getPrice}</p>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
