@@ -1,11 +1,6 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   class Product {
     ObjectID: string;
     title: string;
@@ -50,12 +45,33 @@ function App() {
     product2
   ];
 
+  const productList = products.map(product =>
+    <tr className="tableRow">
+      <td>{product.getObjectID}</td>
+      <td>{product.getTitle}</td>
+      <td>{product.getDescription}</td>
+      <td>{product.getPrice}</td>
+      <td>{product.getSupplier}</td>
+    </tr>
+  )
+
 
   return (
     <>
       <div>
         <h1>My Products</h1>
-        <p>{products[0].getPrice}</p>
+        <table className="productTable">
+          <thead>
+            <tr>
+              <th>ObjectID</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Supplier</th>
+            </tr>
+          </thead>
+            {productList}
+        </table>
       </div>
     </>
   )
