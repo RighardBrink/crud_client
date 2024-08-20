@@ -10,7 +10,6 @@ table {
   /* useful table reference: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table */
 
   border-collapse: collapse;
-  border: 2px solid black;
   width: 100%;
 
   thead tr th {
@@ -21,14 +20,5 @@ table {
 
 th, td {
   border: 2px solid grey;
-}
-
-/* .tableRow {
-  display: table-row;
-  table-layout: auto;
-  border: 1px solid blue;
-
-  span {
-    margin: auto;
-  }
+  padding: 0.5rem 0 0.5rem 0;
 }

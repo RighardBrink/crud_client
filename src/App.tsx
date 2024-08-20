@@ -1,6 +1,10 @@
 import './App.css'
+import { useEffect, useState } from 'react';
 
 function App() {
+
+//BEGIN CLASS CODE
+
   class Product {
     ObjectID: string;
     title: string;
@@ -40,7 +44,7 @@ function App() {
   const product1 = new Product("66b0ba3cb3489045ad72c93f", "Test3", "Extended test3", 200, "SupplierTest3");
   const product2 = new Product("76b0ba3cb3489045ad72c93g", "Test4", "Extended test4", 300);
 
-  const products = [
+  const products: Product[] = [
     product1, 
     product2
   ];
@@ -55,11 +59,64 @@ function App() {
     </tr>
   )
 
+  //END OF CLASS CODE
+
+  //BEGIN INTERFACE CODE
+  //implementation from https://medium.com/@diegogauna.developer/restful-api-using-typescript-and-react-hooks-3d99bdd0cd39
+
+  interface IProduct {
+    _id: string;
+    title: string;
+    description: string;
+    price: number;
+    supplier: string;
+  }
+
+  async function fetchProducts(): Promise<IProduct[]> {
+    const response = await fetch('http://localhost:3000/products');
+    const data = await response.json();
+    return data;
+  }
+
+  function ProductsList() {
+    const [productRecords, setProducts] = useState<IProduct[]>([]);
+    const [error, setError] = useState<string | null>(null);
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const data = await fetchProducts();
+          setProducts(data);
+        }
+        catch(error: any) {
+          setError(error.message);
+        }
+      }
+      fetchData()
+    }, []);
+
+    return (
+      <div>
+        {productRecords.map((product) => (
+          <ul>
+            <li>{product._id}</li>
+            <li>{product.title}</li>
+            <li>{product.description}</li>
+            <li>{product.price}</li>
+            <li>{product.supplier}</li>
+            
+          </ul>
+          
+      ))}
+      </div>
+    );
+  }
+
+  //END OF INTERFACE CODE
 
   return (
     <>
       <div>
-        <h1>My Products</h1>
+        <h1>Inventory List</h1>
         <table className="productTable">
           <thead>
             <tr>
@@ -70,8 +127,13 @@ function App() {
               <th>Supplier</th>
             </tr>
           </thead>
+          <tbody>
             {productList}
+          </tbody>          
         </table>
+      </div>
+      <div>
+        <ProductsList/>
       </div>
     </>
   )
