@@ -3,66 +3,7 @@ import { useEffect, useState } from 'react';
 
 function App() {
 
-//BEGIN CLASS CODE
-
-  class Product {
-    ObjectID: string;
-    title: string;
-    description: string;
-    price: number;
-    supplier?: string;
-    
-    constructor(_objectID: string, _title: string, _description: string, _price: number, _supplier?: string) {
-      this.ObjectID = _objectID;
-      this.title = _title;
-      this.description = _description;
-      this.price = _price;
-      this.supplier = _supplier;
-    };
-
-    get getObjectID() {
-      return this.ObjectID;
-    }
-
-    get getTitle() {
-      return this.title;
-    }
-
-    get getDescription() {
-      return this.description;
-    }
-
-    get getPrice() {
-      return this.price;
-    }
-
-    get getSupplier() {
-      return this.supplier;
-    }
-  }
-
-  const product1 = new Product("66b0ba3cb3489045ad72c93f", "Test3", "Extended test3", 200, "SupplierTest3");
-  const product2 = new Product("76b0ba3cb3489045ad72c93g", "Test4", "Extended test4", 300);
-
-  const products: Product[] = [
-    product1, 
-    product2
-  ];
-
-  const productList = products.map(product =>
-    <tr className="tableRow">
-      <td>{product.getObjectID}</td>
-      <td>{product.getTitle}</td>
-      <td>{product.getDescription}</td>
-      <td>{product.getPrice}</td>
-      <td>{product.getSupplier}</td>
-    </tr>
-  )
-
-  //END OF CLASS CODE
-
   //BEGIN INTERFACE CODE
-  //implementation from https://medium.com/@diegogauna.developer/restful-api-using-typescript-and-react-hooks-3d99bdd0cd39
 
   interface IProduct {
     _id: string;
@@ -96,28 +37,7 @@ function App() {
 
     return (
       <div>
-        {productRecords.map((product) => (
-          <ul>
-            <li>{product._id}</li>
-            <li>{product.title}</li>
-            <li>{product.description}</li>
-            <li>{product.price}</li>
-            <li>{product.supplier}</li>
-            
-          </ul>
-          
-      ))}
-      </div>
-    );
-  }
-
-  //END OF INTERFACE CODE
-
-  return (
-    <>
-      <div>
-        <h1>Inventory List</h1>
-        <table className="productTable">
+      <table className="productTable">
           <thead>
             <tr>
               <th>ObjectID</th>
@@ -128,10 +48,25 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {productList}
+          {productRecords.map((product) => (
+          <tr className="tableRow">
+            <td>{product._id}</td>
+            <td>{product.title}</td>
+            <td>{product.description}</td>
+            <td>{product.price}</td>
+            <td>{product.supplier}</td>
+          </tr>
+          ))}
           </tbody>          
         </table>
       </div>
+    );
+  }
+
+  //END OF INTERFACE CODE
+
+  return (
+    <>
       <div>
         <ProductsList/>
       </div>
