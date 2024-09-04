@@ -1,42 +1,78 @@
-import './App.css'
+import './App.css';
 import { useEffect, useState } from 'react';
+import removeIcon from './assets/remove-icon.svg';
 
-function App() {
+interface IProduct {
+  _id: string;
+  title: string;
+  description: string;
+  price: number;
+  supplier: string;
+}
 
-  //BEGIN INTERFACE CODE
+const Product = ({product, deleteProduct}: {product: IProduct, deleteProduct: (id: string) => void}) => (
+  <tr className="tableRow">
+    <td>{product._id}</td>
+    <td>{product.title}</td>
+    <td>{product.description}</td>
+    <td>{product.price}</td>
+    <td>{product.supplier}</td>
+    <td>          
+      <img onClick={() => {deleteProduct(product._id)}} className="removeIcon" src={removeIcon} alt="Delete Product"/>
+    </td>
+  </tr>
+);
 
-  interface IProduct {
-    _id: string;
-    title: string;
-    description: string;
-    price: number;
-    supplier: string;
-  }
+function ProductList() {
 
-  async function fetchProducts(): Promise<IProduct[]> {
-    const response = await fetch('http://localhost:3000/products');
+  const [productRecords, setProducts] = useState<IProduct[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      // const products = await fetchProducts();
+      const response = await fetch('http://localhost:3000/products');
+      const data = await response.json();
+      setProducts(data)
+      console.log(productRecords);
+    }
+    fetchData();
+    return;
+  }, [productRecords.length]);
+
+  // async function fetchProducts() {
+  //   const response = await fetch('http://localhost:3000/products');
+  //   const data = await response.json();
+  //   return data;
+  // }
+
+  async function deleteProduct(id: string) {
+    const response = await fetch('http://localhost:3000/product/deleteProduct', {
+      method: "PUT",
+      body: `_id: ${id}`
+    });
     const data = await response.json();
-    return data;
+
+    const newProducts = productRecords.filter(product => product._id !== id);
+    setProducts(newProducts);
+    
+    console.log(data);
+    //return data;    
   }
 
-  function ProductsList() {
-    const [productRecords, setProducts] = useState<IProduct[]>([]);
-    const [error, setError] = useState<string | null>(null);
-    useEffect(() => {
-      async function fetchData() {
-        try {
-          const data = await fetchProducts();
-          setProducts(data);
-        }
-        catch(error: any) {
-          setError(error.message);
-        }
-      }
-      fetchData()
-    }, []);
+  function productList() {
+    return productRecords.map((product) => {
+      return (
+        <Product
+          product={product}
+          deleteProduct={() => deleteProduct(product._id)}
+          key={product._id}
+        />
+      );
+    });
+  }
 
-    return (
-      <div>
+  return (
+    <>
       <table className="productTable">
           <thead>
             <tr>
@@ -45,33 +81,25 @@ function App() {
               <th>Description</th>
               <th>Price</th>
               <th>Supplier</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-          {productRecords.map((product) => (
-          <tr className="tableRow">
-            <td>{product._id}</td>
-            <td>{product.title}</td>
-            <td>{product.description}</td>
-            <td>{product.price}</td>
-            <td>{product.supplier}</td>
-          </tr>
-          ))}
+            {productList()}
           </tbody>          
         </table>
-      </div>
-    );
-  }
+    </>
+  );
+}
 
-  //END OF INTERFACE CODE
-
+function App() {
   return (
     <>
-      <div>
-        <ProductsList/>
-      </div>
+      <ProductList/>
     </>
-  )
+  );  
 }
 
 export default App
+
+//https://felixgerschau.com/react-typescript-onclick-event-type/

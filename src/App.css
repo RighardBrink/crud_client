@@ -10,7 +10,7 @@ table {
   /* useful table reference: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table */
 
   border-collapse: collapse;
-  width: 100%;
+  width: 75%;
 
   thead tr th {
     padding: 1rem 0 1rem 0;    
@@ -21,4 +21,8 @@ table {
 th, td {
   border: 2px solid grey;
   padding: 0.5rem 0 0.5rem 0;
+}
+
+.removeIcon:hover {
+  cursor: pointer;
 }
