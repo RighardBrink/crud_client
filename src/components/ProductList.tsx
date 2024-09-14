@@ -12,7 +12,7 @@ const Product = ({product, deleteProduct}: {product: IProduct, deleteProduct: (i
     <td>{product.price}</td>
     <td>{product.supplier}</td>
     <td>          
-      <Link to={"/create"}>
+      <Link to={`/update/${product._id}`}>
         <img className="updateIcon" src={updateIcon} alt="Update Product"/>
       </Link>
       <img onClick={() => {deleteProduct(product._id)}} className="removeIcon" src={removeIcon} alt="Delete Product"/>

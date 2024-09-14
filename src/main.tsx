@@ -27,6 +27,16 @@ const router = createBrowserRouter([
         element: <Product/>
       }
     ]
+  },
+  {
+    path: "/update/:id",
+    element: <App/>,
+    children: [
+      {
+        path: "/update/:id",
+        element: <Product/>
+      }      
+    ]    
   }
 ]);
 
