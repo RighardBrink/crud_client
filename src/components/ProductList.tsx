@@ -63,21 +63,33 @@ export default function ProductList() {
 
   return (
     <>
-      <table className="productTable">
-          <thead>
-            <tr>
-              <th>ObjectID</th>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Supplier</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {productList()}
-          </tbody>          
-        </table>
+      <div className="productListContent">
+        <div className="productsTable">
+          <table className="productTable">
+            <thead>
+              <tr>
+                <th>ObjectID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Supplier</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {productList()}
+            </tbody>          
+          </table>
+        </div>
+        
+        <div className="newProductBtn">
+          <Link to={'/create'}>
+            <button>
+              Add new product
+            </button>
+          </Link>
+        </div>
+      </div>
     </>
   );
 }

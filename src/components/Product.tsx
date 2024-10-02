@@ -1,10 +1,9 @@
-import { IProduct } from '../models/ProductModel';
+// import { IProduct } from '../models/ProductModel';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 export default function Product() {
-    const [productForm, setProductForm] = useState<IProduct>({
-        _id: "",
+    const [productForm, setProductForm] = useState({
         title: "",
         description: "",
         price: 0,
@@ -70,7 +69,6 @@ export default function Product() {
         }
         finally {
             setProductForm({
-                _id: "",
                 title: "",
                 description: "",
                 price: 0,
